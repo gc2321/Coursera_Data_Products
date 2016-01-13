@@ -9,3 +9,8 @@ This App shows countries with the highest and lowest net migration for a given y
 
 It also shows year-by-year net migration value of any country during this peroid.
 
+The presentation of Shiny App is located here:
+http://rpubs.com/gc2321/142682
+
+The Shiny App is hosted here:
+http://gc2321.shinyapps.io/migrate/
