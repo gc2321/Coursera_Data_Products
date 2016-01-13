@@ -1,0 +1,67 @@
+Net migration of people around the world
+========================================================
+author: 
+date: 
+transition: rotate
+
+
+Net migration
+========================================================
+
+Net migration is the difference of immigrants and emigrants of a country in a period of time. A positive value represents more people entering the country than leaving it, while a negative value means more people leaving than entering it.
+
+
+Data and App
+========================================================
+Data was obtained from the UNdata website. 
+
+This App shows countries with the highest and lowest net migration for a given year in the peroid from 1962 to 2012. 
+
+It also shows year-by-year net migration value of any country during this peroid.
+
+
+Example of display (I)
+========================================================
+The following graph shows the top 15 countries with the highest net migration in 1987.
+<center>
+```{r, echo=FALSE, warning=FALSE, message=FALSE}
+library(ggplot2)
+d<-read.csv("migrate/data/migration.csv", colClasses =c("factor", "factor", "integer"))
+d2<-d[d$Year==1987,]
+d3<-d2[order(-d2$Value),]
+g<-ggplot(d3[1:25,], aes(x=Value, y=reorder(Country, Value)))
+g_high<-ggplot(d3[1:15,], aes(x=Value, y=reorder(Country, Value)))
+g_high+geom_point(size=3)+
+    geom_segment(aes(yend=Country), xend=0, colour="black")+
+    labs(x="Number of people gained",y="Countries")+ 
+    theme_bw()+
+    theme(panel.grid.major.x=element_blank(),
+          panel.grid.minor.x=element_blank(),
+          panel.grid.major.y=element_line(colour="grey60", linetype="dashed"))   
+```
+</center>
+
+
+Example of display (II)
+========================================================
+The following graph shows the net migration of Zambia from 1962 to 2012. 
+
+<center>
+```{r, echo=FALSE, warning=FALSE, message=FALSE}
+d2_c<-d[d$Country=="Zambia",]
+d3_c<-d2_c[order(d2_c$Year),]
+g_c<-ggplot(d3_c, aes(x=Year, y=Value))
+g_c+geom_point(size=3)+
+geom_segment(yend=0, aes(xend=Year), colour="black")+
+geom_abline(intercept = 0, slope=0)+
+labs(x="Year",y="Number of people gained")+
+theme_bw()+
+theme(
+    axis.text.x = element_text(angle=60, hjust=1),
+    panel.grid.major.y=element_blank(),
+    panel.grid.minor.y=element_blank(),
+    panel.grid.major.x=element_line(colour="grey60", linetype="dashed")) 
+```
+</center>
+
+
